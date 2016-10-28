@@ -7,26 +7,26 @@ import org.eclipse.egit.github.core.RepositoryContents;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.ContentsService;
 import org.eclipse.egit.github.core.service.RepositoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 public class StoryReader implements StoryReaderService {
-
-
 
     private GitHubClient client;
     private RepositoryService repositoryService;
     private ContentsService contentsService;
 
-
+    @Autowired
+    @Qualifier("GHClient")
     public void setClient(GitHubClient client) {
         this.client = client;
+        repositoryService = new RepositoryService(client);
+        contentsService = new ContentsService(client);
     }
 
 
@@ -36,16 +36,21 @@ public class StoryReader implements StoryReaderService {
      */
     @Override
     public Set<Story> getUserStories() {
-
-        RepositoryService repositoryService = new RepositoryService(client);
-
         Set<Story> userStories = new HashSet<>();
-
+        List<Repository> repositories;
         try {
-            // TODO: NEED TO FILTER OUT NON-STORY REPOS
-            userStories.addAll(repositoryService.getRepositories().stream().map(this::extractStoryFromRepo).collect(Collectors.toList()));
+            repositories = repositoryService.getRepositories();
+
+            // Unfortunately github api does not have an efficient way to filter
+            // so I am doing it by repo name in java.
+            repositories.removeIf(r -> !r.getName().contains("fikky"));
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
+        }
+
+        for (Repository repository : repositories) {
+                userStories.add(extractStoryFromRepo(repository));
         }
         return userStories;
     }
@@ -55,29 +60,42 @@ public class StoryReader implements StoryReaderService {
         return null;
     }
 
-    private Story extractStoryFromRepo(Repository repo) {
-
-        ContentsService contentsService = new ContentsService(client);
+    private Story extractStoryFromRepo(Repository repository) {
         List<RepositoryContents> repoContents = null;
         try {
-            repoContents = contentsService.getContents(repo, FikkyConstants.STORY_PATH);
+            repoContents = contentsService.getContents(repository, FikkyConstants.STORY_PATH);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Story extractedStory  = new Story(repo.getId());
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        Story extractedStory  = new Story(repository.getId());
         // TODO: SET OWNER?
-
-        if (repoContents.size() != 1) {
-            // TODO: THROW ERROR
+        if (repoContents.size() == 1) {
+            extractedStory.setContents(pullStoryContentFromRepoContents(repoContents));
+            return extractedStory;
         }
-        else {
-            //TODO: WHEN STORIES BECOME MORE COMPLICATED WE CAN MAKE OUR OWN STORYCONTENT OBJECTS
-            extractedStory.setContents(repoContents.get(0).getContent());
+        return null;
+    }
+
+    private String pullStoryContentFromRepoContents(List<RepositoryContents> repositoryContents) {
+        for (RepositoryContents content : repositoryContents) {
+            if (FikkyConstants.STORY_PATH.equalsIgnoreCase(content.getName())) {
+                return parseContent(content.getContent());
+            }
         }
+        return null;
+    }
 
-        return extractedStory;
-
-
+    private String parseContent(String encodedContent) {
+        String[] contentLines = encodedContent.split("\n");
+        StringBuilder sb = new StringBuilder();
+        for (String line : contentLines) {
+            sb.append(new String(Base64.getDecoder().decode(line)));
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 
 }
