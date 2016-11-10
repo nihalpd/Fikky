@@ -12,6 +12,8 @@ public class StoryWriter implements StoryWriterService {
     public void editStory(int storyID) {
         // TODO: connect to Story-writing view
         // take submitted text and put into repo
+
+        // autosave?
     }
 
     @Override
