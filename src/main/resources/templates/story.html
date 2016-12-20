@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fikky - Stories</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js"
+            th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <table class="table table-striped">
+            <tr>
+                <td>Name</td>
+            </tr>
+            <tr>
+                <td th:text="${story}"></td>
+            </tr>
+            <tr>
+                <td><a th:href="${'/story/list'}">View Other Stories</a></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>

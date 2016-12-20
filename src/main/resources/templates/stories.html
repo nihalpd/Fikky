@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fikky - Stories</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js"
+            th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+
+    <link href="../static/css/spring-core.css"
+          th:href="@{css/spring-core.css}" rel="stylesheet" media="screen"/>
+</head>
+<body>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(stories)}">
+        <h2>Stories</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Link</th>
+            </tr>
+            <tr th:each="story : ${stories}">
+                <td th:text="${story.name}"></td>
+                <td><a th:href="${'/story/' + story.id}">View</a></td>
+            </tr>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
