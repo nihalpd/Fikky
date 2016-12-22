@@ -50,7 +50,7 @@ public class Chapter {
     }
 
     @ManyToOne
-    @JoinColumn(name = "STOCK_ID", nullable = false)
+    @JoinColumn(name = "STORY_ID", nullable = false)
     public Story getStory() {
         return story;
     }
