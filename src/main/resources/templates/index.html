@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js"
+            th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+
+    <!--link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"/-->
+</head>
+<body>
+<div class="jumbotron">
+    <div class="container">
+        <h1>Fikky</h1>
+        Hello there. How are you.
+    </div>
+</div>
+<div class="container">
+    <div class="row-md-12">
+        <div class="col-md-6 col-md-offset-3 well">
+            <div class="form-group center-block">
+                <label for="usr">Username:</label>
+                <input type="text" class="form-control" id="usr"/>
+            </div>
+            <div class="form-group center-block">
+                <label for="pwd">Password:</label>
+                <input type="password" class="form-control" id="pwd"/>
+            </div>
+            <button type="button" class="btn btn-primary center-block">Primary</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
