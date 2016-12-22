@@ -1,7 +1,13 @@
 package com.fikky.controllers;
 
-/**
- * Created by nihal on 12/20/16.
- */
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+@Controller
 public class IndexController {
+
+    @RequestMapping("/")
+    public String getIndex() {
+        return "index";
+    }
 }
