@@ -17,13 +17,19 @@
     <div class="row">
         <table class="table table-striped">
             <tr>
-                <td>Name</td>
+                <h2 th:text="${story.name}"> </h2>
+                <h3>Chapters</h3>
             </tr>
             <tr>
-                <td th:text="${story}"></td>
-            </tr>
-            <tr>
-                <td><a th:href="${'/story/list'}">View Other Stories</a></td>
+               <div th:if="${not #lists.isEmpty(chapters)}">
+                   <table class="table table-striped">
+                       <tr th:each="chapter : ${chapters}">
+                           <td th:text="${chapter.number}"></td>
+                           <td th:text="${chapter.name}"></td>
+                       </tr>
+                   </table>
+               </div>
+
             </tr>
         </table>
     </div>
