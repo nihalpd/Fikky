@@ -21,9 +21,9 @@
                 <h3>Chapters</h3>
             </tr>
             <tr>
-               <div th:if="${not #lists.isEmpty(chapters)}">
+               <div th:if="${not #lists.isEmpty(story.getChapters())}">
                    <table class="table table-striped">
-                       <tr th:each="chapter : ${chapters}">
+                       <tr th:each="chapter : ${story.getChapters()}">
                            <td th:text="${chapter.number}"></td>
                            <td th:text="${chapter.name}"></td>
                        </tr>
