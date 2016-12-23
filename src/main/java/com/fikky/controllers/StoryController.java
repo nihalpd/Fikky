@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-public class StoryController {
+public class
+StoryController {
     private StoryService storyService;
 
     @Autowired
@@ -20,14 +21,14 @@ public class StoryController {
     @RequestMapping("/story/list")
     public String stories(String name, Model model) {
         model.addAttribute("stories", storyService.listAll());
-        return "stories";
+        return "story/list";
     }
 
-    @RequestMapping("/story/{id}")
+    @RequestMapping("/story/show/{id}")
     public String story(@PathVariable("id") Integer id, Model model) {
         Story story = storyService.getById(id);
         model.addAttribute("story", story);
-        return "story";
+        return "story/show";
     }
 
     @RequestMapping("/story/new")

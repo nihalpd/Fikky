@@ -8,7 +8,7 @@ public class Chapter {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CHAPTER_ID")
-    private Integer chapterId;
+    private Integer id;
 
     @Version
     private Integer version;
@@ -24,12 +24,12 @@ public class Chapter {
 
     private String name;
 
-    public Integer getChapterId() {
-        return chapterId;
+    public Integer getId() {
+        return id;
     }
 
-    public void setChapterId(Integer chapterId) {
-        this.chapterId = chapterId;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
 

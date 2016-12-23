@@ -13,18 +13,11 @@
 </head>
 <body>
 <div class="container">
-    <div th:if="${not #lists.isEmpty(stories)}">
-        <h2>Stories</h2>
-        <table class="table table-striped">
-            <tr>
-                <th>Name</th>
-                <th>Link</th>
-            </tr>
-            <tr th:each="story : ${stories}">
-                <td th:text="${story.name}"></td>
-                <td><a th:href="${'/story/' + story.id}">View</a></td>
-            </tr>
-        </table>
+    <div class="row">
+        <h2 th:text="${chapter.name}"> </h2>
+    </div>
+    <div class="row">
+        <p th:utext="${chapter.contents}"> </p>
     </div>
 
 </div>

@@ -1,6 +1,8 @@
-package com.fikky.service;
+package com.fikky.service.jpadao;
 
 import com.fikky.models.Chapter;
+import com.fikky.service.ChapterService;
+import com.fikky.service.jpadao.AbstractJpaDaoService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 

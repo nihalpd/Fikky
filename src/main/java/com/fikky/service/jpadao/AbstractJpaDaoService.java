@@ -1,4 +1,4 @@
-package com.fikky.service;
+package com.fikky.service.jpadao;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
@@ -11,7 +11,5 @@ public class AbstractJpaDaoService {
     public void setEmf(EntityManagerFactory emf) {
         this.emf = emf;
     }
-
-
 
 }
