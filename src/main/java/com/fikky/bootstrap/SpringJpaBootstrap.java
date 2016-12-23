@@ -114,24 +114,18 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         Chapter savedCh5 = chapterService.saveOrUpdate(ch5);
         Chapter savedCh6 = chapterService.saveOrUpdate(ch6);
 
-
         chapterLinkService.addLink(savedCh1, savedCh2);
-
         chapterLinkService.addLink(savedCh2, savedCh3);
-
         chapterLinkService.addLink(savedCh3, savedCh4);
-
         chapterLinkService.addLink(savedCh4, savedCh5);
-
         chapterLinkService.addLink(savedCh5, savedCh6);
 
-        System.out.println(chapterLinkService.getChildren(savedCh1.getId()));
     }
 
     private Story loadStories() {
         Story story1 = new Story();
         story1.setName("Fresh Prince");
-        story1.setDescription("adsfdsafsadfkisadf");
+        story1.setDescription("theme song for Fresh Prince of Bel-Air!");
 
         Story savedStory =  storyService.saveOrUpdate(story1);
 
