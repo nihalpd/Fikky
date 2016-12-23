@@ -41,7 +41,6 @@ public class ChapterLinkServiceRepoImpl implements ChapterLinkService {
     @Override
     public ChapterLink addLink(Chapter parent, Chapter child) {
         ChapterLink newLink = new ChapterLink(parent.getId(), child.getId());
-        System.out.println("Linking parent \"" + parent.getName() + "\" with child \"" + child.getName() + "\".");
         return chapterLinkRepository.save(newLink);
     }
 

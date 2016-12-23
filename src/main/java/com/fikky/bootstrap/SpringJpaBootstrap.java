@@ -1,7 +1,9 @@
 package com.fikky.bootstrap;
 
 import com.fikky.models.Chapter;
+import com.fikky.models.ChapterLink;
 import com.fikky.models.Story;
+import com.fikky.service.ChapterLinkService;
 import com.fikky.service.ChapterService;
 import com.fikky.service.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
     private StoryService storyService;
     private ChapterService chapterService;
+    private ChapterLinkService chapterLinkService;
 
     @Autowired
     private void setProductService(StoryService storyService) {
@@ -29,6 +32,11 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         this.chapterService = chapterService;
     }
 
+    @Autowired
+    private void setChapterLinkService(ChapterLinkService chapterLinkService) {
+        this.chapterLinkService = chapterLinkService;
+    }
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
         Story testStory = loadStories();
@@ -38,9 +46,9 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
     private void loadChapters(Story story) {
         Chapter ch1 = new Chapter();
         ch1.setContents("Now this is the story all about how<br>" +
-                        "My life got flipped, turned upside down<br>" +
-                        "And I'd like to take a minute just sit right there<br>" +
-                        "I'll tell you how I became the prince of a town called Bel Air");
+                "My life got flipped, turned upside down<br>" +
+                "And I'd like to take a minute just sit right there<br>" +
+                "I'll tell you how I became the prince of a town called Bel Air");
         ch1.setName("This is a story all about how");
 
         Chapter ch2 = new Chapter();
@@ -99,13 +107,25 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
         ch5.setNumber(5);
         ch6.setNumber(6);
 
-        chapterService.saveOrUpdate(ch1);
-        chapterService.saveOrUpdate(ch2);
-        chapterService.saveOrUpdate(ch3);
-        chapterService.saveOrUpdate(ch4);
-        chapterService.saveOrUpdate(ch5);
-        chapterService.saveOrUpdate(ch6);
+        Chapter savedCh1 = chapterService.saveOrUpdate(ch1);
+        Chapter savedCh2 = chapterService.saveOrUpdate(ch2);
+        Chapter savedCh3 = chapterService.saveOrUpdate(ch3);
+        Chapter savedCh4 = chapterService.saveOrUpdate(ch4);
+        Chapter savedCh5 = chapterService.saveOrUpdate(ch5);
+        Chapter savedCh6 = chapterService.saveOrUpdate(ch6);
 
+
+        chapterLinkService.addLink(savedCh1, savedCh2);
+
+        chapterLinkService.addLink(savedCh2, savedCh3);
+
+        chapterLinkService.addLink(savedCh3, savedCh4);
+
+        chapterLinkService.addLink(savedCh4, savedCh5);
+
+        chapterLinkService.addLink(savedCh5, savedCh6);
+
+        System.out.println(chapterLinkService.getChildren(savedCh1.getId()));
     }
 
     private Story loadStories() {
