@@ -1,8 +1,9 @@
-package com.fikky.service;
+package com.fikky.service.repo;
 
 import com.fikky.models.Chapter;
 import com.fikky.models.ChapterLink;
 import com.fikky.repositories.ChapterLinkRepository;
+import com.fikky.service.ChapterLinkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
