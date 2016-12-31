@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-@Profile("springdatajpa")
+@Profile("repo")
 public class ChapterLinkServiceRepoImpl implements ChapterLinkService {
 
     private ChapterLinkRepository chapterLinkRepository;
