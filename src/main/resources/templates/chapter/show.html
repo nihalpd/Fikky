@@ -20,6 +20,9 @@
         <p th:utext="${chapter.contents}"> </p>
     </div>
 
+    <div class="row">
+        <a th:href="${'/chapter/list/' + story.id}">Back to Chapters</a>
+    </div>
 </div>
 
 </body>

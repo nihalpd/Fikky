@@ -49,8 +49,6 @@ public class Chapter {
         this.contents = contents;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "STORY_ID", nullable = false)
     public Story getStory() {
         return story;
     }
