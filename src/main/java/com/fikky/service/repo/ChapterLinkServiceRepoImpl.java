@@ -30,12 +30,12 @@ public class ChapterLinkServiceRepoImpl implements ChapterLinkService {
     }
 
     @Override
-    public List<ChapterLink> getChildren(Integer parentId) {
+    public List<ChapterLink> getChildLinks(Integer parentId) {
         return chapterLinkRepository.findByParentId(parentId);
     }
 
     @Override
-    public List<ChapterLink> getParents(Integer childId) {
+    public List<ChapterLink> getParentLinks(Integer childId) {
         return chapterLinkRepository.findByChildId(childId);
     }
 

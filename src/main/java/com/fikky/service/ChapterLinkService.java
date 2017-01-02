@@ -8,8 +8,8 @@ import java.util.List;
 public interface ChapterLinkService {
 
     List<ChapterLink> listAll();
-    List<ChapterLink> getChildren(Integer parentId);
-    List<ChapterLink> getParents(Integer childId);
+    List<ChapterLink> getChildLinks(Integer parentId);
+    List<ChapterLink> getParentLinks(Integer childId);
     ChapterLink addLink(Chapter parent, Chapter child);
     void delete(Integer id);
 
