@@ -19,12 +19,17 @@
             <tr>
                 <th>Name</th>
                 <th>Link</th>
+                <th>Action</th>
             </tr>
             <tr th:each="story : ${stories}">
                 <td th:text="${story.name}"></td>
                 <td><a th:href="${'/story/show/' + story.id}">View</a></td>
+                <td><a th:href="${'/story/add/' + story.id}">Update</a> | <a th:href="${'/story/delete/' + story.id}">Remove</a></td>
             </tr>
         </table>
+    </div>
+    <div class="form-group ">
+        <a  class="btn btn-info btn-lg btn-block login-button" th:href="@{/story/add}">Ad a Story</a>
     </div>
 
 </div>
