@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fikky - Stories</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js"
+            th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+
+</head>
+<body>
+<div class="container">
+    <form class="form-horizontal" method="post" th:action="@{/story/new}">
+
+
+         <span><i class="fa fa-user fa" aria-hidden="true"></i></span>
+        <input type="hidden" th:field="*{story.id}" />
+        <span><i class="fa fa-user fa" aria-hidden="true"></i></span>
+        <input type="hidden" th:field="*{story.version}"/>
+
+        <div class="form-group">
+            <label for="name" class="cols-sm-2 control-label">Story Name</label>
+            <div class="cols-sm-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control" th:field="*{story.name}" id="name" name="name" roleId="name"  placeholder="Enter your story name" required="required"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="description" class="cols-sm-2 control-label">Story Description</label>
+            <div class="cols-sm-10">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                    <input type="text" class="form-control"  th:field="*{story.description}" id="description" name="description" roleId="description"  placeholder="Enter your Story description" required="required"/>
+                </div>
+            </div>
+        </div>
+        <!--<div class="form-group">-->
+        <!--<label for="confirm" class="cols-sm-2 control-label">Confirm Secret</label>-->
+        <!--<div class="cols-sm-10">-->
+        <!--<div class="input-group">-->
+        <!--<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>-->
+        <!--<input type="secret" class="form-control" name="confirm" roleId="confirm"  placeholder="Confirm your Secret" required="required"/>-->
+        <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
+
+        <div class="form-group ">
+            <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Add!</button>
+        </div>
+
+        <hr />
+
+        <div class="form-group ">
+            <a  class="btn btn-info btn-lg btn-block login-button" th:href="@{/story/list}">Cancel</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>
