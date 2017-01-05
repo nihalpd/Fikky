@@ -5,13 +5,12 @@ import com.fikky.service.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-public class
-StoryController {
+public class StoryController {
     private StoryService storyService;
 
     @Autowired
@@ -20,7 +19,7 @@ StoryController {
     }
 
     @RequestMapping("/story/list")
-    public String stories(String name, Model model) {
+    public String stories(Model model) {
         model.addAttribute("stories", storyService.listAll());
         return "story/list";
     }
@@ -31,26 +30,25 @@ StoryController {
         model.addAttribute("story", story);
         return "story/show";
     }
-    @RequestMapping("/story/add")
-    public String addStory(Model theModel)
-    {
-        Story theStory=new Story();
-        theModel.addAttribute("story",theStory);
-        return "story/addform";
-    }
-    @RequestMapping("/story/add/{id}")
-    public String updateStory(@PathVariable("id") Integer id, Model theModel)
-    {
-        Story theStory = storyService.getById(id);
-        theModel.addAttribute("story",theStory);
-        return "story/addform";
-    }
 
     @RequestMapping("/story/new")
-    public String newStory(@ModelAttribute("story") Story story, Model model)
-    {
-        storyService.saveOrUpdate(story);
-        return "redirect:/story/list";
+    public String addStory(Model model) {
+        Story story = new Story();
+        model.addAttribute("story", story);
+        return "story/storyform";
+    }
+
+    @RequestMapping("/story/edit/{id}")
+    public String updateStory(@PathVariable("id") Integer id, Model model) {
+        Story story = storyService.getById(id);
+        model.addAttribute("story", story);
+        return "story/storyform";
+    }
+
+    @RequestMapping(value = "/story", method = RequestMethod.POST)
+    public String newStory(Story story) {
+        Story savedStory = storyService.saveOrUpdate(story);
+        return "redirect:/story/show/" + savedStory.getId();
     }
 
     @RequestMapping("/story/delete/{id}")
