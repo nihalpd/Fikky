@@ -18,7 +18,7 @@ public class Story implements DomainObject {
     @Column(unique = true)
     private String name;
 
-    @OneToMany(mappedBy = "story")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "story")
     private Set<Chapter> chapters;
 
     private String description;
