@@ -24,7 +24,7 @@ public class UserServiceRepoImpl implements UserService {
   public List<?> listAll() {
     List<User> users = new ArrayList<>();
     userRepository.findAll().forEach(users::add);
-    return null;
+    return users;
   }
 
   @Override
