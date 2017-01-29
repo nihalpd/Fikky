@@ -3,10 +3,7 @@ package com.fikky.models;
 import com.fikky.models.security.Role;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.Entity;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Transient;
+import javax.persistence.*;
 
 @Entity
 public class User extends AbstractDomainClass {
@@ -19,9 +16,9 @@ public class User extends AbstractDomainClass {
   private String encryptedPassword;
   private Boolean enabled = true;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable
-  private List<Role> roles = new ArrayList<>();
+  private List<Role> roles;
 
   public String getUsername() {
     return username;

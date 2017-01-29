@@ -6,7 +6,10 @@ import com.fikky.service.UserService;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -14,6 +17,13 @@ import org.springframework.stereotype.Service;
 public class UserServiceRepoImpl implements UserService {
 
   private UserRepository userRepository;
+  private PasswordEncoder passwordEncoder;
+
+  @Autowired
+  private void setPasswordEncoder(PasswordEncoder passwordEncoder) {
+    this.passwordEncoder = passwordEncoder;
+  }
+
 
   @Autowired
   public void setUserRepository(UserRepository userRepository) {
@@ -34,6 +44,9 @@ public class UserServiceRepoImpl implements UserService {
 
   @Override
   public User saveOrUpdate(User domainObject) {
+    if (domainObject.getPassword()!=null) {
+      domainObject.setEncryptedPassword(passwordEncoder.encode(domainObject.getPassword()));
+    }
     return userRepository.save(domainObject);
   }
 
