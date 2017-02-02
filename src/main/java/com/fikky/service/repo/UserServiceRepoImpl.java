@@ -1,14 +1,14 @@
 package com.fikky.service.repo;
 
+import com.fikky.commands.UserCreateForm;
+import com.fikky.converters.UserCreateFormToUser;
 import com.fikky.models.User;
 import com.fikky.repositories.UserRepository;
 import com.fikky.service.UserService;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Profile;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -18,16 +18,21 @@ public class UserServiceRepoImpl implements UserService {
 
   private UserRepository userRepository;
   private PasswordEncoder passwordEncoder;
+  private UserCreateFormToUser userCreateFormToUser;
 
   @Autowired
   private void setPasswordEncoder(PasswordEncoder passwordEncoder) {
     this.passwordEncoder = passwordEncoder;
   }
 
-
   @Autowired
   public void setUserRepository(UserRepository userRepository) {
     this.userRepository = userRepository;
+  }
+
+  @Autowired
+  public void setUserCreateFormToUser(UserCreateFormToUser userCreateFormToUser) {
+    this.userCreateFormToUser = userCreateFormToUser;
   }
 
   @Override
@@ -58,5 +63,10 @@ public class UserServiceRepoImpl implements UserService {
   @Override
   public User findByUsername(String username) {
     return userRepository.findByUsername(username);
+  }
+
+  @Override
+  public User saveOrUpdateUserForm(UserCreateForm userCreateForm) {
+    return saveOrUpdate(userCreateFormToUser.convert(userCreateForm));
   }
 }
