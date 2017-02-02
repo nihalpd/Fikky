@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fikky - User Registration</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js"
+            th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+</head>
+<body>
+<div class="container">
+
+    <h2>User Registration</h2>
+    <div>
+        <form th:object="${userCreateForm}" th:action="@{/user/register/do}" method="post">
+            <input type="hidden" th:field="*{id}"/>
+            <input type="hidden" th:field="*{version}"/>
+            <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                <p th:text="#{userCreateForm.hasErrors}">Error Message</p>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Name:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" th:field="*{username}" />
+                    <span class="help-block" th:if="${#fields.hasErrors('username')}">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('username')}" th:text="${err}" />
+                        </ul>
+                    </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label">Password: </label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" th:field="*{passwordText}"/>
+                    <span class="help-block" th:if="${#fields.hasErrors('passwordText')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('passwordText')}" th:text="${err}" />
+                       </ul>
+                </span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label"> Confirm Password: </label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" th:field="*{passwordTextConf}"/>
+                    <span class="help-block" th:if="${#fields.hasErrors('passwordTextConf')}">
+                       <ul>
+                           <li th:each="err : ${#fields.errors('passwordTextConf')}" th:text="${err}" />
+                       </ul>
+                </span>
+                </div>
+            </div>
+            <div class="row">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>
