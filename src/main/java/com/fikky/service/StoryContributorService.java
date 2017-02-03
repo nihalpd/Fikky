@@ -8,6 +8,7 @@ import com.fikky.models.User;
 import java.util.List;
 
 public interface StoryContributorService extends CRUDService<StoryContributor>{
-    List<StoryContributor> findByStory(Story story);
-    List<StoryContributor> findByUser(User user);
+    List<User> findContributorsByStory(Story story);
+    List<Story> findStoriesByContributor(User user);
+    List<Story> findCurrentUserStories();
 }

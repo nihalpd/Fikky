@@ -1,6 +1,9 @@
 package com.fikky.controllers;
 
 import com.fikky.models.Story;
+import com.fikky.models.StoryContributor;
+import com.fikky.models.User;
+import com.fikky.service.StoryContributorService;
 import com.fikky.service.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,16 +14,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class StoryController {
+
     private StoryService storyService;
+    private StoryContributorService storyContributorService;
 
     @Autowired
     public void setStoryService(StoryService storyService) {
         this.storyService = storyService;
     }
 
+    @Autowired
+    public void setStoryContributorService(StoryContributorService storyContributorService) {
+        this.storyContributorService = storyContributorService;
+    }
+
     @RequestMapping("/story/list")
     public String stories(Model model) {
-        model.addAttribute("stories", storyService.listAll());
+        model.addAttribute("stories", storyContributorService.findCurrentUserStories());
         return "story/list";
     }
 
