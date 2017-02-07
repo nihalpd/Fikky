@@ -1,8 +1,6 @@
 package com.fikky.controllers;
 
 import com.fikky.models.Story;
-import com.fikky.models.StoryContributor;
-import com.fikky.models.User;
 import com.fikky.service.StoryContributorService;
 import com.fikky.service.StoryService;
 import org.springframework.beans.factory.annotation.Autowired;

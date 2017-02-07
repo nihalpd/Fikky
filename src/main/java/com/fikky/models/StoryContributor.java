@@ -8,11 +8,11 @@ import javax.persistence.*;
 @Entity
 public class StoryContributor extends AbstractDomainClass {
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(nullable = false)
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "STORY_ID", nullable = false)
     private Story story;
 

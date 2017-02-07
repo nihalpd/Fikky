@@ -1,11 +1,14 @@
 package com.fikky.service.repo;
 
+import com.fikky.commands.StoryContributorForm;
 import com.fikky.configuration.auth.AuthenticationFacade;
+import com.fikky.converters.StoryContributorFormToStoryContributor;
 import com.fikky.models.Story;
 import com.fikky.models.StoryContributor;
 import com.fikky.models.User;
 import com.fikky.repositories.StoryContributorRepository;
 import com.fikky.service.StoryContributorService;
+import com.fikky.service.StoryService;
 import com.fikky.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -20,6 +23,7 @@ public class StoryContributorServiceRepoImpl implements StoryContributorService 
     private StoryContributorRepository storyContributorRepository;
     private AuthenticationFacade authenticationFacade;
     private UserService userService;
+    private StoryContributorFormToStoryContributor toStoryContributor;
 
     @Autowired
     public void setStoryContributorRepository(StoryContributorRepository storyContributorRepository) {
@@ -34,6 +38,11 @@ public class StoryContributorServiceRepoImpl implements StoryContributorService 
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setToStoryContributor(StoryContributorFormToStoryContributor toStoryContributor) {
+        this.toStoryContributor = toStoryContributor;
     }
 
     @Override
@@ -88,4 +97,16 @@ public class StoryContributorServiceRepoImpl implements StoryContributorService 
         User currentUser = userService.findByUsername(username);
         return findStoriesByContributor(currentUser);
     }
+
+    @Override
+    public List<StoryContributor> findByStory(Story story) {
+        return storyContributorRepository.findByStory(story);
+    }
+
+    @Override
+    public StoryContributor saveOrUpdateStoryContributorForm(StoryContributorForm storyContributorForm) {
+        return saveOrUpdate(toStoryContributor.convert(storyContributorForm));
+    }
+
+
 }
