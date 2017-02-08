@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fikky - Stories</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+
+    <link href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.7/css/bootstrap.min.css"
+          th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"
+          rel="stylesheet" media="screen"/>
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/3.1.1/jquery.min.js"
+            th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <!--/*@thymesVar id="contributors" type="java.util.List<com.fikky.models.StoryContributor>"*/-->
+    <div th:if="${not #lists.isEmpty(contributors)}">
+         <h2 th:inline="text">Story Contributors for [[${story.name}]]  </h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Action</th>
+            </tr>
+
+            <tr th:each="contributor : ${contributors}">
+                <td th:text="${contributor.user.username}">Username</td>
+                    <td th:text="${contributor.type}">Type</td>
+                <td>
+                    <a th:href="${'/story/contributors/' + storyContributorForm.storyId +
+                                  '/delete/' + contributor.id}">Remove</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Add a new contributor by username:
+        </div>
+    	<div class="panel-body">
+            <!--/*@thymesVar id="storyContributorForm" type="com.fikky.commands.StoryContributorForm"*/-->
+            <form class="form-group" th:action="@{/story/contributors/new}" th:object="${storyContributorForm}" method="post">
+                <div th:class="${#fields.hasErrors()} ? 'form-group has-error' : 'form-group'" class="form-group">
+                    <input type="hidden" th:field="*{id}"/>
+                    <input type="hidden" th:field="*{version}"/>
+                    <input type="hidden" th:field="*{storyId}"/>
+                    <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                        <p th:text="#{storyContributorForm.hasErrors}">Error Message</p>
+                    </div>
+                    <input type="text" th:field="*{username}"/>
+                    <span class="help-block" th:if="${#fields.hasErrors('username')}? fieldError">
+                <ul>
+                    <li th:each="err : ${#fields.errors('username')}" th:text="${err}" ></li>
+                </ul>
+            </span>
+                </div>
+                <div class="input-group">
+                    <select class="form-control" th:field="*{type}">
+                        <!--/*@thymesVar id="type" type="com.fikky.models.contributor.ContributorType"*/-->
+                        <option th:each="type : ${T(com.fikky.models.contributor.ContributorType).values()}"
+                                th:value="${type}"
+                                th:text="${type}">
+                        </option>
+                    </select>
+                </div>
+                <div class="panel-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

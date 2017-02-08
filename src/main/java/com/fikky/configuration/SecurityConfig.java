@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .and().authorizeRequests().antMatchers("/story/**").authenticated()
         .and().authorizeRequests().antMatchers("/chapter/**").authenticated()
         .and().authorizeRequests().antMatchers("/user/**").permitAll()
+            .and().authorizeRequests().antMatchers("/nav.html").authenticated()
         .and().exceptionHandling().accessDeniedPage("/access_denied");
   }
 

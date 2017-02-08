@@ -19,9 +19,14 @@
         <h2 th:text="${story.name}"> </h2>
         <h3 th:text="${story.description}"></h3>
     </div>
+
     <div class="row">
         <a th:href="${'/chapter/list/' + story.id}">View Chapters</a>
     </div>
+    <div class="row">
+        <a th:href="${'/story/contributors/' + story.id}">View Contributors</a>
+    </div>
+
     <div class="row">
         <a th:href="${'/story/list/'}">Back to Stories</a>
     </div>
