@@ -53,12 +53,7 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- H2 DB -->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-		</dependency>
-
+		<!-- DATABASE -->
 		<dependency>
 			<groupId>org.mariadb.jdbc</groupId>
 			<artifactId>mariadb-java-client</artifactId>
