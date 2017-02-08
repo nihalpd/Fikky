@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -45,16 +46,23 @@ public class StoryContributorController {
         List<StoryContributor> contributors = storyContributorService.findByStory(story);
         model.addAttribute("contributors", contributors);
         model.addAttribute("story", story);
-        StoryContributorForm storyContributorForm = new StoryContributorForm();
-        storyContributorForm.setStoryId(id);
-        model.addAttribute("storyContributorForm", storyContributorForm);
+        if (!model.containsAttribute("storyContributorForm")) {
+            StoryContributorForm storyContributorForm = new StoryContributorForm();
+            storyContributorForm.setStoryId(id);
+            model.addAttribute("storyContributorForm", storyContributorForm);
+        }
         return "story/contributors/list";
     }
 
     @RequestMapping(value = "story/contributors/new", method = RequestMethod.POST)
-    public String addContributor(@Valid StoryContributorForm storyContributorForm, BindingResult bindingResult) {
+    public String addContributor(@Valid StoryContributorForm storyContributorForm,
+                                 BindingResult bindingResult, RedirectAttributes attributes) {
         contributorFormValidator.validate(storyContributorForm, bindingResult);
-        if (bindingResult.hasErrors()) return "redirect:/story/contributors/" + storyContributorForm.getStoryId();
+        if (bindingResult.hasErrors()) {
+            attributes.addFlashAttribute("org.springframework.validation.BindingResult.storyContributorForm", bindingResult);
+            attributes.addFlashAttribute("storyContributorForm", storyContributorForm);
+            return "redirect:/story/contributors/" + storyContributorForm.getStoryId();
+        }
         storyContributorService.saveOrUpdateStoryContributorForm(storyContributorForm);
         return "redirect:/story/contributors/" + storyContributorForm.getStoryId();
     }

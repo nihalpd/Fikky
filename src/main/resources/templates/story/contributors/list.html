@@ -39,13 +39,13 @@
         </div>
     	<div class="panel-body">
             <!--/*@thymesVar id="storyContributorForm" type="com.fikky.commands.StoryContributorForm"*/-->
-            <form class="form-group" action="#" th:action="@{/story/contributors/new}" th:object="${storyContributorForm}" method="post">
+            <form class="form-group" th:action="@{/story/contributors/new}" th:object="${storyContributorForm}" method="post">
                 <div th:class="${#fields.hasErrors()} ? 'form-group has-error' : 'form-group'" class="form-group">
                     <input type="hidden" th:field="*{id}"/>
                     <input type="hidden" th:field="*{version}"/>
                     <input type="hidden" th:field="*{storyId}"/>
                     <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
-                        <p th:text="#{storyContributorForm.hasErrors()}">Error Message</p>
+                        <p th:text="#{storyContributorForm.hasErrors}">Error Message</p>
                     </div>
                     <input type="text" th:field="*{username}"/>
                     <span class="help-block" th:if="${#fields.hasErrors('username')}? fieldError">
@@ -67,11 +67,11 @@
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
 
-            </form>
-    	</div>
-    </div>
+                </form>
+            </div>
+        </div>
 
-</div>
+    </div>
 
 </body>
 </html>
