@@ -12,6 +12,7 @@
             th:src="@{/webjars/jquery/3.1.1/jquery.min.js}"></script>
 </head>
 <body>
+<div th:replace="fragments/nav :: fikky-navbar"></div>
 <div class="container">
     <div class="row">
         <h2 th:text="${chapter.name}"> </h2>
