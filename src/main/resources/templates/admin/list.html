@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fikky - Admin Home</title>
+    <thymeleaf th:replace="fragments/head :: head" />
+</head>
+<body>
+<div th:replace="fragments/nav :: fikky-navbar"></div>
+<div class="container">
+    <div th:if="${not #lists.isEmpty(users)}">
+        <h2>Users</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Link</th>
+                <th>Action</th>
+            </tr>
+            <!--/*@thymesVar id="users" type="com.fikky.models.List<User>"*/-->
+            <tr th:each="user : ${users}">
+                <td th:text="${user.username}"></td>
+
+                <td>
+                    <a th:href="${'/admin/user/show/' + user.id}">View</a>
+                </td>
+                <td>
+                    <a th:href="${'/admin/user/delete/' + user.id}">Remove</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

@@ -12,9 +12,11 @@ public class UserDetailsImpl implements UserDetails {
   private String password;
   private Boolean enabled;
 
+
+
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return null;
+    return authorities;
   }
 
   @Override

@@ -60,9 +60,12 @@ public class StoryServiceRepoImpl implements StoryService {
 
     @Override
     public Story saveOrUpdate(Story domainObject) {
+        Story savedStory = storyRepository.save(domainObject);
         //Add original story creator as the owner.
-        if (domainObject.getId() == null) saveOwnerContributor(domainObject);
-        return storyRepository.save(domainObject);
+        if (domainObject.getId() == null) {
+            saveOwnerContributor(savedStory);
+        }
+        return savedStory;
     }
 
     @Override

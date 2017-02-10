@@ -1,4 +1,4 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <title>Fikky - Stories</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -25,8 +25,13 @@
                 <ul class="nav navbar-nav">
                     <li><a th:href="${'/story/list/'}">Stories</a></li>
                     <li><a th:href="${'/story/list/'}">Settings</a></li>
+                    <li sec:authorize="hasRole('ADMIN')"><a th:href="${'/admin/'}">Admin</a> </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <p class="navbar-brand">Logged in as: </p>
+                        <p class="navbar-brand" sec:authentication="principal.username"></p>
+                    </li>
                     <li>
                         <form id="logout" class="navbar-form navbar-right" th:action="@{/logout}" method="post">
                             <button type="submit" class="btn-link">Logout</button>

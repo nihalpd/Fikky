@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Fikky - User (Admin)</title>
+    <thymeleaf th:replace="fragments/head :: head" />
+</head>
+<body>
+<div th:replace="fragments/nav :: fikky-navbar"></div>
+<div class="container">
+    <div class="row">
+        <!--/*@thymesVar id="user" type="com.fikky.models.User"*/-->
+        <h2 th:text="${user.username}"> </h2>
+    </div>
+    <div th:if="${not #lists.isEmpty(user.roles)}">
+        <h2>Assigned Roles</h2>
+        <table class="table table-striped">
+            <tr>
+                <th>Name</th>
+                <th>Link</th>
+                <th>Action</th>
+            </tr>
+            <!--/*@thymesVar id="users" type="java.util.List<com.fikky.models.security.Role>"*/-->
+            <tr th:each="role : ${user.roles}">
+                <td th:text="${role.role}"></td>
+
+                <td>
+                    <a th:href="${'/story/show/' + user.id}">View</a>
+                </td>
+                <td>
+                    <a th:href="${'//delete/' + user.id}">Remove</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+
+    <div class="row">
+        <a th:href="${'/admin/user/list/'}">Back to Users</a>
+    </div>
+</div>
+
+</body>
+</html>
