@@ -23,7 +23,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     http.authorizeRequests().antMatchers("/**/favicon.ico") .permitAll()
         .and().authorizeRequests().antMatchers("/webjars/**").permitAll()
         .and().authorizeRequests().antMatchers("/static/**").permitAll()
-        .and().authorizeRequests().antMatchers("/user/register").permitAll()
+        .and().authorizeRequests().antMatchers("/register").permitAll()
         .and().authorizeRequests().antMatchers("/js").permitAll()
         .and().formLogin().loginPage("/").loginProcessingUrl("/login")
         .successForwardUrl("/story/list").permitAll()

@@ -10,7 +10,7 @@
     <h2>User Registration</h2>
     <div>
         <!--/*@thymesVar id="userCreateForm" type="com.fikky.commands.UserCreateForm"*/-->
-        <form th:object="${userCreateForm}" th:action="@{/user/register/do}" method="post">
+        <form th:object="${userCreateForm}" th:action="@{/register/do}" method="post">
             <input type="hidden" th:field="*{id}"/>
             <input type="hidden" th:field="*{version}"/>
             <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
